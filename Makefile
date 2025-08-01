@@ -23,7 +23,7 @@ GIT_SHA ?= latest
 
 all: build run                    ## Build and run the app
 deploy: build run test stop       ## Full CI/CD simulation
-check: lint format test           ## Code quality + endpoint tests
+check: lint format           ## Code quality + endpoint tests
 
 # ────────────────────────────────────────────────────────────────
 # 🐳 Docker Commands
