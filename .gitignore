@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+*.egg
+*.env
+.env
+# .env.*
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+Pipfile.lock
+poetry.lock
+
+# IDEs & editors
+.vscode/
+.idea/
+*.swp
+*.bak
+
+# macOS system files
+.DS_Store
+
+# Logs and testing
+*.log
+*.out
+coverage/
+htmlcov/
+.pytest_cache/
+
+# Docker
+*.tar
+*.pid
+docker-compose.override.yml
+.dockerignore
+
+# Build and dist
+build/
+dist/
+*.egg-info/
+*.wheel
+
+# Jupyter / Notebooks (if used)
+.ipynb_checkpoints/
+
+# MyPy / lint tools
+.mypy_cache/
+.pyre/
+.pytype/
+.cache/
+
+# FastAPI static builds (optional)
+static/
+**/deprecated/
