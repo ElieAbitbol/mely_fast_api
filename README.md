@@ -16,8 +16,8 @@ PORT=8000
 IMAGE_NAME=fastapi-image
 CONTAINER_NAME=fastapi-container
 
-# Git SHA tag for pushed Docker image
-GIT_SHA=latest
+# # Git SHA tag for pushed Docker image - optional for local test, not used in deploy
+# GIT_SHA=latest
 ```
 
 > ✅ Rename this file manually:
