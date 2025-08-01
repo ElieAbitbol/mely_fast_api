@@ -7,7 +7,7 @@
 Copy this file as `.env` and adjust values for local development or CI/CD.
 
 ```dotenv
-# Docker Hub credentials (used by GitHub Actions)
+# Add Docker Hub credentials to GitHub Actions Repositorie secrets
 DOCKER_USERNAME=your-dockerhub-username
 DOCKER_PASSWORD=your-dockerhub-password-or-token
 

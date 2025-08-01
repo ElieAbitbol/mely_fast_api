@@ -18,7 +18,7 @@ PORT ?= 8000
 IMAGE_NAME ?= template-fastapi-image
 CONTAINER_NAME ?= template-fastapi-container
 DOCKER_USERNAME ?= your-dockerhub-username
-GIT_SHA ?= latest
+GIT_SHA ?= local_test
 
 # ────────────────────────────────────────────────────────────────
 # 🚀 Main Targets
