@@ -6,3 +6,6 @@ black
 flake8
 isort
 autopep8
+google-generativeai
+python-dotenv
+requests

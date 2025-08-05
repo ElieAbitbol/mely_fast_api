@@ -58,3 +58,5 @@ dist/
 # FastAPI static builds (optional)
 static/
 **/deprecated/
+
+app/usecases_scripts/
