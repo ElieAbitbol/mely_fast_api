@@ -48,34 +48,27 @@ class GuidanceRequest(BaseModel):
 
 
 class PatternDetected(BaseModel):
-    field_type: str
-    pattern_description: str
-    frequency: str
+    field_name: str
+    pattern_type: str
+    description: str
     examples: List[str]
+    frequency: int
+    confidence: float = Field(..., ge=0.0, le=1.0)
 
 
 class SpecificGuidance(BaseModel):
     description: str
-    company_patterns: str
-    company_errors: str
-    company_examples: str
-    prevention_tips: str
-    
-    @field_validator('company_examples', 'prevention_tips', mode='before')
-    @classmethod
-    def convert_list_to_string(cls, v):
-        if isinstance(v, list):
-            return '; '.join(str(item) for item in v)
-        return v
+    patterns: str
+    common_errors: str
+    examples: str
 
 
 class GuidanceResponse(BaseModel):
     company_id: str
-    analysis_summary: str
     patterns_detected: List[PatternDetected]
     proposed_specific_guidance: Dict[str, SpecificGuidance]
     confidence: float = Field(..., ge=0.0, le=1.0)
-    recommendations: str
+    summary: str
 
 
 class PatternValidationExample(BaseModel):
@@ -91,19 +84,17 @@ class ValidationRequest(BaseModel):
 
 
 class ValidationResult(BaseModel):
-    example_id: int
     field_name: str
-    llm_decision: bool
-    correct_decision: bool
-    accuracy: bool
+    should_integrate: bool
+    confidence: float = Field(..., ge=0.0, le=1.0)
     reasoning: str
 
 
 class ValidationResponse(BaseModel):
-    total_examples: int
+    accuracy: float = Field(..., ge=0.0, le=1.0)
     correct_predictions: int
-    accuracy: float
-    results: List[ValidationResult]
+    total_predictions: int
+    predictions: List[ValidationResult]
     summary: str
 
 

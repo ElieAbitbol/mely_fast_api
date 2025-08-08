@@ -5,15 +5,15 @@ from app.models import (
     GuidanceRequest, GuidanceResponse, ValidationRequest, ValidationResponse,
     BatchCorrectionRequest, BatchCorrectionResponse
 )
-from app.services import MyService
+from app.services import CorrectionService
 
 router = APIRouter()
-service = MyService()
+correction_service = CorrectionService()
 
 
 @router.get("/")
 def root():
-    return {"message": "Welcome to the Data Correction API 👋"}
+    return {"message": "Welcome to the Data Correction API"}
 
 
 @router.get("/ping")
@@ -23,7 +23,7 @@ def pong():
 
 @router.get("/data", response_model=ResponseModel)
 def read_data():
-    return service.get_data()
+    return ResponseModel(message="Data Correction API is running")
 
 
 @router.post("/correct", response_model=CorrectionResponse)
@@ -35,7 +35,6 @@ def perform_correction(request: CorrectionRequest):
     providing the corrected value along with confidence and reasoning.
     """
     try:
-        correction_service = service.get_correction_service()
         return correction_service.perform_correction_inference(request)
     except ValueError as e:
         raise HTTPException(
@@ -43,11 +42,6 @@ def perform_correction(request: CorrectionRequest):
             detail=str(e)
         )
     except RuntimeError as e:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=str(e)
-        )
-    except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Internal server error: {str(e)}"
@@ -63,7 +57,6 @@ def build_company_guidance(request: GuidanceRequest):
     that can improve future data extraction accuracy.
     """
     try:
-        correction_service = service.get_correction_service()
         return correction_service.build_company_guidance(request)
     except ValueError as e:
         raise HTTPException(
@@ -91,7 +84,6 @@ def validate_pattern_detection(request: ValidationRequest):
     that should be integrated into guidance vs. specific corrections to ignore.
     """
     try:
-        correction_service = service.get_correction_service()
         return correction_service.validate_pattern_detection(request)
     except ValueError as e:
         raise HTTPException(
@@ -116,16 +108,10 @@ def perform_batch_corrections(request: BatchCorrectionRequest):
     Perform batch field corrections on multiple fields.
     
     Processes multiple field_name/current_value pairs efficiently,
-    with automatic parallel processing for large datasets (>5 items).
+    with automatic parallel processing for large datasets.
     """
     try:
-        correction_service = service.get_correction_service()
-        
-        # Use parallel processing for larger batches
-        if len(request.items) > 5:
-            return correction_service.perform_batch_corrections_parallel(request)
-        else:
-            return correction_service.perform_batch_corrections(request)
+        return correction_service.perform_batch_corrections(request)
             
     except ValueError as e:
         raise HTTPException(
